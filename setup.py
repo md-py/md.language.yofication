@@ -7,17 +7,14 @@ with open('readme.md') as fh:
 
 setuptools.setup(
     name='yoficator',
-    version='0.1.0',
+    version='0.1.1',
     description='A Russian text yoficator (ёфикатор)',
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='License :: OSI Approved :: MIT License',
     packages=['yoficator'],
     package_data={
-        'yoficator': [
-            '_data/yoficator.dic',
-            '_data/yoficator.txt',
-        ],
+        'yoficator': ['_data/yoficator.dic'],
     },
     install_requires=['regex==2015.11.09'],
     include_package_data=True,

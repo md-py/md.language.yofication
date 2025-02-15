@@ -69,7 +69,6 @@ import regex as re
 pp = pprint.PrettyPrinter(4) 
 
 workingDir = os.path.abspath(os.path.dirname(__file__)) + '/_data'
-textFile = workingDir + "/yoficator.txt"
 dictionaryFile = workingDir + "/yoficator.dic"
 
 if len(sys.argv) > 1:
@@ -80,8 +79,8 @@ if len(sys.argv) > 1:
     else:
         text = sys.argv[1].decode("utf-8")
 else:
-    # We will assume using textFile as input filename above
-    text = codecs.open(textFile, "r", "utf-8").read()
+    print('Error: No file specified', file=sys.stderr)
+    sys.exit(1)
 
 dictionary = {}
 
