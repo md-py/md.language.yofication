@@ -7,7 +7,7 @@ with open('readme.md') as fh:
 
 setuptools.setup(
     name='yoficator',
-    version='0.1.2',
+    version='0.1.3',
     description='A Russian text yoficator (ёфикатор)',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -16,7 +16,6 @@ setuptools.setup(
     package_data={
         'yoficator': ['_data/yoficator.dic'],
     },
-    install_requires=['regex==2015.11.09'],
     include_package_data=True,
     classifiers=[
         'Programming Language :: Python :: 3',
