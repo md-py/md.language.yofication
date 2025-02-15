@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import setuptools
 
 
@@ -7,7 +6,7 @@ with open('readme.md') as fh:
 
 setuptools.setup(
     name='yoficator',
-    version='0.1.3',
+    version='0.1.4',
     description='A Russian text yoficator (ёфикатор)',
     long_description=long_description,
     long_description_content_type='text/markdown',
@@ -22,5 +21,5 @@ setuptools.setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
-    python_requires='>=2.7, <3',
+    python_requires='>=3',
 )
