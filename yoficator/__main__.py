@@ -3,7 +3,6 @@
 from __future__ import print_function, unicode_literals
 import codecs
 import os, sys
-import pprint
 import regex as re
 
 #-------------------------------------------------------------------------#
@@ -65,8 +64,6 @@ import regex as re
 #--------------------------------------------------------------------------#
 
 # TODO Better handle lowercase, uppercase
-
-pp = pprint.PrettyPrinter(4) 
 
 workingDir = os.path.abspath(os.path.dirname(__file__)) + '/_data'
 dictionaryFile = workingDir + "/yoficator.dic"

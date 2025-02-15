@@ -7,7 +7,7 @@ with open('readme.md') as fh:
 
 setuptools.setup(
     name='yoficator',
-    version='0.1.1',
+    version='0.1.2',
     description='A Russian text yoficator (ёфикатор)',
     long_description=long_description,
     long_description_content_type='text/markdown',
