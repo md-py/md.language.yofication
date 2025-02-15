@@ -14,22 +14,33 @@ or [Russian](https://ru.wikipedia.org/wiki/Ёфикатор).
 
 ## Usage
 
-Depends on yoficator.dic, which is used for the lookup and should remain in the same folder.
-
-`yoficator.py [text-file-in-Russian | string-in-Russian]`
+1. Build wheel:
+   ```sh
+   python setup.py bdist_wheel -d '/tmp'
+   ```
+2. Install wheel:
+   ```sh
+   pip install yoficator-0.1.0-py2-none-any.whl
+   ```
+3. Use:
+   ```sh
+   python -m yoficator  # [text-file-in-Russian | string-in-Russian]
+   ```
 
 ## Examples
 
 Running the command without arguments parses the test file:
 
-`yoficator.py`
+```sh
+python -m yoficator
+```
 
 Or just use it with a file or string:
 
 ```sh
-yoficator.py russianfile.txt    # prints to STDOUT
-yoficator.py russianfile.txt > russianfile-yoficated.txt
-yoficator.py "Где ее книга?"
+python -m yoficator russianfile.txt    # prints to STDOUT
+python -m yoficator russianfile.txt > russianfile-yoficated.txt
+python -m yoficator "Где ее книга?"
 ```
 
 ## Limitations

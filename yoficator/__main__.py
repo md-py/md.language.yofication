@@ -68,12 +68,9 @@ import regex as re
 
 pp = pprint.PrettyPrinter(4) 
 
-# Variables initialization; tests a file if no argument is supplied.
-# Save the yoficator as a subfolder of your Desktop
-# TODO: Make it compatible with other OSs.
-workingDir = os.getenv('HOME') + "/Desktop/yoficator/"
-textFile = workingDir + "tests/yoficator.txt"
-dictionaryFile = workingDir + "yoficator.dic"
+workingDir = os.path.abspath(os.path.dirname(__file__)) + '/_data'
+textFile = workingDir + "/yoficator.txt"
+dictionaryFile = workingDir + "/yoficator.dic"
 
 if len(sys.argv) > 1:
     # Is the input a filename?
