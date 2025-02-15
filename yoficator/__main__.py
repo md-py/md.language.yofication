@@ -2,6 +2,7 @@
 import os
 import sys
 import re
+import bz2
 
 #-------------------------------------------------------------------------#
 #
@@ -64,7 +65,7 @@ import re
 
 if __name__ == '__main__':
     # TODO Better handle lowercase, uppercase
-    dictionary_file_path = os.path.abspath(os.path.dirname(__file__)) + '/_data/dictionary.ru_RU.txt'
+    dictionary_file_path = os.path.abspath(os.path.dirname(__file__)) + '/_data/dictionary.ru_RU.txt.bz2'
 
     if len(sys.argv) > 1:
         # Is the input a filename?
@@ -82,11 +83,10 @@ if __name__ == '__main__':
     # Splitter / tokenizer
     splitter = re.compile(r'(?P<word>[а-я]*е[а-я]*)|(?P<unknown>[^е]+\b)', re.IGNORECASE)
 
-    with open(dictionary_file_path) as stream:
+    with bz2.open(dictionary_file_path) as stream:
         for line in iter(stream):
-            if ':' in line:
-                key, value = line.split(':')
-                dictionary[key] = value.rstrip('\n')
+            key, value = line.decode('utf-8').split(':')
+            dictionary[key] = value.rstrip('\n')
 
     for token in splitter.finditer(text):
         word = token.group(0)
