@@ -6,14 +6,14 @@ with open('readme.md') as fh:
 
 setuptools.setup(
     name='yoficator',
-    version='0.1.4',
+    version='0.1.5',
     description='A Russian text yoficator (ёфикатор)',
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='License :: OSI Approved :: MIT License',
     packages=['yoficator'],
     package_data={
-        'yoficator': ['_data/yoficator.dic'],
+        'yoficator': ['_data/dictionary.ru_RU.txt'],
     },
     include_package_data=True,
     classifiers=[

@@ -64,7 +64,7 @@ import re
 
 if __name__ == '__main__':
     # TODO Better handle lowercase, uppercase
-    dictionary_file_path = os.path.abspath(os.path.dirname(__file__)) + '/_data/yoficator.dic'
+    dictionary_file_path = os.path.abspath(os.path.dirname(__file__)) + '/_data/dictionary.ru_RU.txt'
 
     if len(sys.argv) > 1:
         # Is the input a filename?
