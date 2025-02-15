@@ -80,7 +80,7 @@ if __name__ == '__main__':
     dictionary = {}
 
     # Splitter / tokenizer
-    splitter = re.compile(r'(\s+|\w+|\W+|\S+)')
+    splitter = re.compile(r'(?P<word>[а-я]*е[а-я]*)|(?P<unknown>[^е]+\b)', re.IGNORECASE)
 
     with open(dictionary_file_path) as stream:
         for line in iter(stream):
@@ -89,7 +89,9 @@ if __name__ == '__main__':
                 dictionary[key] = value.rstrip('\n')
 
     for token in splitter.finditer(text):
-        if token in dictionary:
-            print(dictionary[token], end='')
-        else:
-            print(token, end='')
+        word = token.group(0)
+        if token.lastgroup == 'word':
+            print(dictionary.get(word, word), end='')
+            continue
+
+        print(word, end='')
