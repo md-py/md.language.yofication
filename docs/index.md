@@ -5,29 +5,22 @@ md.language.yofication component provides a cyrillic text yofication (ёфика
 This is remastered version of [Yoficator](https://github.com/unabashed/yoficator) 
 originally developed by unabashed.
 
----
-
-**What does it do ?**
-
-It conservatively replaces every `е` to `ё` when it's unambiguously a case of the latter. No context is used; 
-it relies entirely on a lack of dictionary entries for a correspondent "truly `е`" homograph.
-
-Yoficating Russian texts removes some unnecessary ambiguities.
-
-To learn more, check Wikipedia in [English](https://en.wikipedia.org/wiki/Yoficator)
-or [Russian](https://ru.wikipedia.org/wiki/Ёфикатор).
-
----
-
-**Limitations:**
-
-- The code being conservative and not looking for context, it won't correct when a "truly `е`" homograph exists. Thus,
-  a "`все`" will never be corrected, because both `все` and `всё` exist as different words.
-- Prone to wrongly yoficate other Cyrillic-based languages, such as Bulgarian, Ukrainian, Belarussian.
-
 ## Architecure overview
 
-[![architecture overview class diagram](docs/_static/architecture-overview.class-diagram.svg)](docs/_static/architecture-overview.class-diagram.svg)
+[![architecture overview class diagram](_static/architecture-overview.class-diagram.svg)](_static/architecture-overview.class-diagram.svg)
+
+## Component overview
+
+```python3
+# Type
+DictionaryType = typing.Mapping[str, str]
+
+# ... alias to primary implementation
+DefaultYoficate = RegularExpressionYoficate
+
+# ... function to load built-in dictionary
+def get_builtin_dictionary(locale: typing.Literal['ru_RU'] = 'ru_RU') -> MappingDictionary: ...
+```
 
 ## Installation
 
@@ -78,7 +71,3 @@ Operation standard input (STDIN):
    Где ее книга?
    Где её книга?
    ```
-
-## [Documentation](docs/index.md)
-## [Changelog](changelog.md)
-## [License (MIT)](license.md)
