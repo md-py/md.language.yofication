@@ -1,0 +1,61 @@
+@startuml
+
+skinparam class {
+  BackgroundColor #ebebeb
+  ArrowColor      #333
+  BorderColor     #333
+}
+
+skinparam lineType ortho
+
+package md.language.yoficate {
+  interface LoadDictionaryInterface {
+    + load(file_path: str) -> DictionaryType
+    + supports(file_path: str) -> bool
+  }
+
+  interface DictionaryInterface {
+    + find(word: str) -> typing.Optional[str]
+    + has(word: str) -> bool
+  }
+
+  interface YoficateInterface {
+    + text(text: str) -> str
+    + word(word: str) -> str
+  }
+
+  class BytesStreamLoadDictionary {
+    + load(stream: typing.IO[bytes], encoding: str = 'utf-8') -> DictionaryType
+  }
+
+  class TextFileLoadDictionary implements LoadDictionaryInterface {
+    - bytes_stream_load_dictionary: BytesStreamLoadDictionary
+    + load(file_path: str) -> DictionaryType
+    + supports(file_path: str) -> bool
+  }
+
+  class Bz2TextFileLoadDictionary implements LoadDictionaryInterface {
+    - bytes_stream_load_dictionary: BytesStreamLoadDictionary
+    + load(file_path: str) -> DictionaryType
+    + supports(file_path: str) -> bool
+  }
+
+  class MappingDictionary implements DictionaryInterface {
+    - dictionary: DictionaryType
+    + find(word: str) -> typing.Optional[str]
+    + has(word: str) -> bool
+  }
+
+  class RegularExpressionYoficate implements YoficateInterface {
+    - dictionary: DictionaryInterface
+    - e_word_regexp: re.Pattern
+    + text(text: str) -> str
+    + word(word: str) -> str
+  }
+
+  TextFileLoadDictionary *-down-> BytesStreamLoadDictionary
+  Bz2TextFileLoadDictionary *-down-> BytesStreamLoadDictionary
+  RegularExpressionYoficate *-> DictionaryInterface
+}
+
+@enduml
