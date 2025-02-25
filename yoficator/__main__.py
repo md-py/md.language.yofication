@@ -1,14 +1,12 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-from __future__ import print_function, unicode_literals
-import codecs
-import os, sys
-import pprint
-import regex as re
+#!/usr/bin/env python3
+import os
+import sys
+import re
+import bz2
 
 #-------------------------------------------------------------------------#
 #
-#                         ▗▀▖▗       ▐                
+#                         ▗▀▖▗       ▐
 #                   ▌ ▌▞▀▖▐  ▄ ▞▀▖▝▀▖▜▀ ▞▀▖▙▀▖  ▛▀▖▌ ▌
 #                   ▚▄▌▌ ▌▜▀ ▐ ▌ ▖▞▀▌▐ ▖▌ ▌▌  ▗▖▙▄▘▚▄▌
 #                   ▗▄▘▝▀ ▐  ▀▘▝▀ ▝▀▘ ▀ ▝▀ ▘  ▝▘▌  ▗▄▘
@@ -16,30 +14,30 @@ import regex as re
 # Description:
 #    This is a Russian text yoficator (ёфикатор).
 #
-#    It conservatively replaces every "е" to "ё" when it's unambiguously 
+#    It conservatively replaces every "е" to "ё" when it's unambiguously
 #    a case of the latter. No context is used; it relies entirely on a lack
-#    of dictionary entries for a correspondent "truly е" homograph. 
+#    of dictionary entries for a correspondent "truly е" homograph.
 #
 #    Yoficating Russian texts remove some unnecessary ambiguity.
 #    https://en.wikipedia.org/wiki/Yoficator
 #    https://ru.wikipedia.org/wiki/Ёфикатор
 #
 #    Syntax: yoficator.py [text-file-in-Russian | string-in-Russian]
-# 
+#
 #    Depends on yoficator.dic, which is used for the lookup.
 #
-#    Limitations: 
-#    * The code being conservative and not looking for context, it won't correct 
-#      when a "truly е" homograph exists. Thus a "все" will never be corrected, 
+#    Limitations:
+#    * The code being conservative and not looking for context, it won't correct
+#      when a "truly е" homograph exists. Thus a "все" will never be corrected,
 #      because both все and всё exist as different words.
-#    * Prone to wrongly yoficate other Cyrillic-based languages, such as 
+#    * Prone to wrongly yoficate other Cyrillic-based languages, such as
 #      Bulgarian, Ukrainian, Belarussian.
 #    * It's not the fastest thing in the world, mind you. But does the job.
 #
 #-------------------------------------------------------------------------
 #
 # Found this useful? Appalling? Appealing? Please let me know.
-# The Unabashed welcomes your impressions. 
+# The Unabashed welcomes your impressions.
 #
 # You will find the
 #   unabashed
@@ -64,51 +62,36 @@ import regex as re
 #
 #--------------------------------------------------------------------------#
 
-# TODO Better handle lowercase, uppercase
 
-pp = pprint.PrettyPrinter(4) 
+if __name__ == '__main__':
+    # TODO Better handle lowercase, uppercase
+    dictionary_file_path = os.path.abspath(os.path.dirname(__file__)) + '/_data/dictionary.ru_RU.txt.bz2'
 
-# Variables initialization; tests a file if no argument is supplied.
-# Save the yoficator as a subfolder of your Desktop
-# TODO: Make it compatible with other OSs.
-workingDir = os.getenv('HOME') + "/Desktop/yoficator/"
-textFile = workingDir + "tests/yoficator.txt"
-dictionaryFile = workingDir + "yoficator.dic"
-
-if len(sys.argv) > 1:
-    # Is the input a filename?
-    if os.path.isfile(sys.argv[1]):
-        text = codecs.open(sys.argv[1].decode("utf-8"), "r", "utf-8").read()
-    # Else we will assume it's a string
-    else:
-        text = sys.argv[1].decode("utf-8")
-else:
-    # We will assume using textFile as input filename above
-    text = codecs.open(textFile, "r", "utf-8").read()
-
-dictionary = {}
-
-
-# Splitter / tokenizer
-splitter = re.compile(r'(\s+|\w+|\W+|\S+)', re.UNICODE)
-tokens = splitter.findall(text)
-
-with codecs.open(dictionaryFile, "r", "utf-8") as f:
-    for line in f:
-        if ":" in line:
-            key,value = line.split(":")
-            dictionary[key] = value.rstrip('\n')
+    if len(sys.argv) > 1:
+        # Is the input a filename?
+        if os.path.isfile(sys.argv[1]):
+            text = open(sys.argv[1]).read()
+        # Else we will assume it's a string
         else:
-            pass
-
-for token in tokens:
-    if token in dictionary:
-        print(dictionary[token], end='')
+            text = sys.argv[1]
     else:
-        print(token, end='')
+        print('Error: No file specified', file=sys.stderr)
+        exit(1)
 
+    dictionary = {}
 
-sys.exit(0)
+    # Splitter / tokenizer
+    splitter = re.compile(r'(?P<word>[а-я]*е[а-я]*)|(?P<unknown>[^е]+\b)', re.IGNORECASE)
 
-# -------------------- END -----------------------
+    with bz2.open(dictionary_file_path) as stream:
+        for line in iter(stream):
+            key, value = line.decode('utf-8').split(':')
+            dictionary[key] = value.rstrip('\n')
 
+    for token in splitter.finditer(text):
+        word = token.group(0)
+        if token.lastgroup == 'word':
+            print(dictionary.get(word, word), end='')
+            continue
+
+        print(word, end='')
