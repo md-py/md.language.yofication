@@ -13,6 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] feature: add lint option
 - [ ] feature: add replacement stats
 
+## [0.1.1] — 2025-03-02
+### Fixed
+
+- fix: dictionary word lookup for party yoficated words, e.g. `четырЕхзвЁздный`, `четырЁхзвЕздный`
+
 ## [0.1.0] — 2025-02-16
 
 `md.language.yofication` package initial version
@@ -71,4 +76,5 @@ Initial release
 
 </details>
 
+[0.1.1]: https://github.com/md-py/md.language.yofication/releases/tag/0.1.1
 [0.1.0]: https://github.com/md-py/md.language.yofication/releases/tag/0.1.0

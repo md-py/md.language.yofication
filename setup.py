@@ -16,7 +16,7 @@ try:
     create_zip()
     setuptools.setup(
         name='md.language.yofication',
-        version='0.1.0',
+        version='0.1.1',
         description='A Russian text yoficator (ёфикатор)',
         long_description=long_description,
         long_description_content_type='text/markdown',
