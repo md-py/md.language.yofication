@@ -13,6 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [ ] feature: add lint option
 - [ ] feature: add replacement stats
 
+### Fixed
+
+- fix: dictionary word lookup for party yoficated words, e.g. `четырЕхзвЁздный`, `четырЁхзвЕздный`
+
 ## [0.1.0] — 2025-02-16
 
 `md.language.yofication` package initial version

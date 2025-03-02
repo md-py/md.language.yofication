@@ -27,6 +27,32 @@ class TestMappingDictionary:
         assert mapping_dictionary.has(word='трехмерный') is True
         assert mapping_dictionary.has(word='четырехзвездный') is False
 
+    def test_find_partly_yoficated(self) -> None:
+        # arrange
+        dictionary = {'четырехзвездный': 'четырёхзвёздный'}
+
+        # act
+        mapping_dictionary = md.language.yofication.MappingDictionary(dictionary=dictionary)
+
+        # assert
+        assert mapping_dictionary.find(word='четырёхзвёздный') == 'четырёхзвёздный'
+        assert mapping_dictionary.find(word='четырехзвёздный') == 'четырёхзвёздный'
+        assert mapping_dictionary.find(word='четырёхзвездный') == 'четырёхзвёздный'
+        assert mapping_dictionary.find(word='четырехзвездный') == 'четырёхзвёздный'
+
+    def test_has_partly_yoficated(self) -> None:
+        # arrange
+        dictionary = {'четырехзвездный': 'четырёхзвёздный'}
+
+        # act
+        mapping_dictionary = md.language.yofication.MappingDictionary(dictionary=dictionary)
+
+        # assert
+        assert mapping_dictionary.has(word='четырёхзвёздный') is True
+        assert mapping_dictionary.has(word='четырехзвёздный') is True
+        assert mapping_dictionary.has(word='четырёхзвездный') is True
+        assert mapping_dictionary.has(word='четырехзвездный') is True
+
 
 class TestRegularExpressionYoficate(unittest.TestCase):
     def test_word(self) -> None:

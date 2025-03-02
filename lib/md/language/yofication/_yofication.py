@@ -120,10 +120,10 @@ class MappingDictionary(DictionaryInterface):
             self._dictionary[ye_word.lower()] = yo_word.lower()
 
     def find(self, word: str) -> typing.Optional[str]:
-        return self._dictionary.get(word, None)
+        return self._dictionary.get(word.replace('ё', 'е'), None)
 
     def has(self, word: str) -> bool:
-        return word in self._dictionary
+        return word.replace('ё', 'е') in self._dictionary
 
 
 class RegularExpressionYoficate(YoficateInterface):
