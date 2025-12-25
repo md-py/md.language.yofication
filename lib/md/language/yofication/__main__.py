@@ -110,7 +110,7 @@ def main(arguments: typing.Sequence[str]) -> int:
 
     if not parsed_arguments.replace:
         # todo consider to separate to `--interactive/-i` and `-`$
-        application = ApplicationEchoLines(yoficate=yoficate)
+        application: ApplicationEchoLines = ApplicationEchoLines(yoficate=yoficate)
         if file_path_count == 0:
             application.run(input_stream=sys.stdin)
             return 0
@@ -121,8 +121,8 @@ def main(arguments: typing.Sequence[str]) -> int:
         return 0
 
     assert parsed_arguments.replace and file_path_count >= 1
-    application = ApplicationReplaceLines(yoficate=yoficate)
-    application.run(file_path_list=parsed_arguments.file_path)
+    application: ApplicationReplaceLines = ApplicationReplaceLines(yoficate=yoficate)  # type: ignore[no-redef]
+    application.run(file_path_list=parsed_arguments.file_path)  # type: ignore[call-arg]
     return 0
 
 

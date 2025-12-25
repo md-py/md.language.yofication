@@ -6,12 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
 
 - [ ] feature: implement r/w stream edit using reading by chunks instead of by lines 
 - [ ] enhancement: change dictionary format: better compress
 - [ ] feature: extend dictionary: add more words, handle separately lower/upper-cased specific words
 - [ ] feature: add lint option
 - [ ] feature: add replacement stats
+- [x] feature: setup github CI/CD workflow configuration
+
+### Fixed
+
+- [x] fix: `mypy` & `bandit` warnings
 
 ## [0.1.1] — 2025-03-02
 ### Fixed
