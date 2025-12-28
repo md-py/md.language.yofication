@@ -6,7 +6,7 @@ with open('readme.md') as fh:
     long_description = fh.read()
 
 
-def create_zip():
+def create_zip() -> None:
     with open('lib/md/language/yofication/_data/dictionary.ru_RU.txt', 'rb') as source:
         with bz2.BZ2File('lib/md/language/yofication/_data/dictionary.ru_RU.txt.bz2', 'w') as stream:
             stream.write(source.read())
